@@ -1,0 +1,18 @@
+# requirements.txt - AI Smart Traffic Control System
+
+# Core
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Deep Learning (YOLOv8)
+ultralytics>=8.0.0
+
+# GUI (built-in with Python)
+# tkinter  ← comes with Python, no pip needed
+
+# Optional: Image processing (if adding image dataset support later)
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Optional: Plotting for analytics
+matplotlib>=3.7.0
