@@ -1,11 +1,11 @@
 # 🚦 AI-Based Smart Traffic Congestion Control System
-**A.G. Patil Institute of Technology, Solapur | BE-CSE Mini Project Phase-II 2026**
+### A.G. Patil Institute of Technology, Solapur | BE-CSE Mini Project Phase-II 2026
 
 ---
 
-## 📁 Project Structure
+# 📁 Project Structure
 
-```
+```text
 traffic_system/
 │
 ├── main.py              ← Entry point (run this)
@@ -21,33 +21,40 @@ traffic_system/
 
 ---
 
-## ⚙️ Setup
+# ⚙️ Setup
 
-### 1. Install dependencies
+## 1. Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Add your Kaggle dataset
-- Download from Kaggle (e.g., **Traffic Flow Count Dataset**)
-- Place the CSV file at: `dataset/traffic_data.csv`
-- Common Kaggle dataset: https://www.kaggle.com/datasets/hasibullahaman/traffic-prediction-dataset
+## 2. Add Your Kaggle Dataset
 
-> ✅ **No dataset?** The system auto-generates realistic simulated data if no CSV is found.
+- Download a traffic dataset from Kaggle  
+- Example Dataset:  
+  https://www.kaggle.com/datasets/hasibullahaman/traffic-prediction-dataset
 
-### 3. Run the system
+- Place the CSV file inside:
+
+```text
+dataset/traffic_data.csv
+```
+
+> ✅ If no dataset is found, the system automatically generates simulated traffic data.
+
+## 3. Run the System
+
 ```bash
 python main.py
 ```
 
 ---
 
-## 🗂️ Supported CSV Column Names (Auto-detected)
+# 🗂️ Supported CSV Column Names (Auto-Detected)
 
-The system auto-detects these common Kaggle column names:
-
-| Data | Accepted Column Names |
-|------|-----------------------|
+| Data Type | Accepted Column Names |
+|------------|-----------------------|
 | Time | `Time`, `DateTime`, `Timestamp` |
 | Cars | `CarCount`, `Cars`, `Car` |
 | Bikes | `BikeCount`, `Bikes`, `Motorcycle` |
@@ -56,70 +63,81 @@ The system auto-detects these common Kaggle column names:
 | Total | `Total`, `TotalCount` |
 | Junction | `Junction`, `Road`, `Lane`, `Location` |
 
-If your columns differ, edit `config.py → csv_columns`.
+If your dataset uses different column names, edit:
+
+```python
+config.py → csv_columns
+```
 
 ---
 
-## 🔧 Configuration (`config.py`)
+# 🔧 Configuration (`config.py`)
 
 | Setting | Value | Description |
-|---------|---------|-------------|
-| `max_green_time` | 45s | Green signal duration |
-| `min_green_time` | 45s | Green signal duration |
+|----------|--------|-------------|
+| `max_green_time` | 45s | Maximum green signal duration |
+| `min_green_time` | 10s | Minimum green signal duration |
 | `yellow_time` | 5s | Yellow signal duration |
-| `simulation_interval` | 1000ms | Speed of simulation |
-| `vehicle_weights` | car=1, bus=2, truck=2, bike=0.5 | Priority scoring weights |
+| `simulation_interval` | 1000ms | Simulation update speed |
+| `vehicle_weights` | car=1, bus=2, truck=2, bike=0.5 | Vehicle priority weights |
 
 ---
 
-## 🚦 How It Works
+# 🚦 How It Works
 
-```
+```text
 CSV Dataset Row
       ↓
 DatasetLoader.get_next_row()
       ↓
-Vehicle counts per road (North/South/East/West)
+Vehicle counts per road
       ↓
 SignalController.update_counts()
       ↓
-Dynamic green time = min_green + (score/60) × (max_green - min_green)
+Dynamic green time calculation
       ↓
 Highest priority road gets GREEN signal
       ↓
-Emergency vehicle? → Immediate GREEN override
+Emergency vehicle override (if detected)
       ↓
 Tkinter GUI updates every second
 ```
 
 ---
 
-## 🖥️ GUI Features
+# 🖥️ GUI Features
 
 - 🟢🟡🔴 Animated traffic lights for all 4 roads
-- ⏱️ Live countdown timer per road
-- 🚗 Vehicle type counts (cars, bikes, buses, trucks)
-- 📊 Priority score display
-- 🚨 Emergency vehicle alert banner
-- 📈 System stats (cycles, total vehicles cleared, active green road)
+- ⏱️ Live countdown timer
+- 🚗 Vehicle count display
+- 📊 Priority score monitoring
+- 🚨 Emergency vehicle alert system
+- 📈 Traffic statistics dashboard
 
 ---
 
-## 🧠 Algorithm: Dynamic Signal Timing
+# 🧠 Dynamic Signal Timing Algorithm
 
 ```python
-score = cars×1 + bikes×0.5 + buses×2 + trucks×2
-green_time = clamp(min_green + (score/60) × (max_green - min_green), 10, 50)
+score = cars * 1 + bikes * 0.5 + buses * 2 + trucks * 2
+
+green_time = clamp(
+    min_green + (score / 60) * (max_green - min_green),
+    10,
+    50
+)
 ```
 
-A road with more heavy vehicles (buses, trucks) gets proportionally more green time.
+Roads with more heavy vehicles such as buses and trucks receive longer green signal duration.
 
 ---
 
-## 👩‍💻 Team
-- Aditi Kulkarni
-- Meghana Sidgiddi
-- Aftab Patel
-- Ganesh Jadhav
+# 👨‍💻 Developer
 
-**Guide:** Prof. A. P. Hosale (Computer Engineering)
+## Aftab Patel
+
+### Guide:
+Prof. A. P. Hosale  
+(Computer Engineering Department)
+
+---
